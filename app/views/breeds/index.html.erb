@@ -1,0 +1,43 @@
+<% require 'net/http' %>
+<% require 'json' %>
+
+<% def fetch_dog_image(breed) %>
+  <% uri = URI("https://dog.ceo/api/breed/#{breed}/images/random") %>
+  
+  <% response = Net::HTTP.get_response(uri) %>
+  <% data = JSON.parse(response.body) %>
+  
+  <% if data['status'] == 'success' %>
+    <% return data['message'] %>
+  <% else %>
+    <% return nil %>
+  <% end %>
+<% end %>
+
+<h1>A list of all the Breeds</h1>
+
+<div class="breed-container">
+<% @breeds.each do |breed| %>
+  <% image_url = fetch_dog_image(breed.name) %>
+  <% if image_url %>
+    <div class="row">
+        <div class="col-sm-4"><%= breed.id %></div>
+        <div class="col-sm-8"><a href="/breed/<%= breed.name %>"><%= breed.name %></a></div>
+    </div>
+  <% else %>
+    <p>No image available</p>
+  <% end %>
+<% end %>
+</div>
+
+<style>
+    h1 {
+        text-align: center;
+        margin-top:40px;
+    }
+    div.breed-container {
+        width: 893px;
+        margin: auto;
+        margin-top: 50px;
+    }
+</style>
