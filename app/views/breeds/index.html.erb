@@ -1,43 +1,52 @@
-<% require 'net/http' %>
-<% require 'json' %>
-
-<% def fetch_dog_image(breed) %>
-  <% uri = URI("https://dog.ceo/api/breed/#{breed}/images/random") %>
-  
-  <% response = Net::HTTP.get_response(uri) %>
-  <% data = JSON.parse(response.body) %>
-  
-  <% if data['status'] == 'success' %>
-    <% return data['message'] %>
-  <% else %>
-    <% return nil %>
-  <% end %>
-<% end %>
-
-<h1>A list of all the Breeds</h1>
-
-<div class="breed-container">
-<% @breeds.each do |breed| %>
-  <% image_url = fetch_dog_image(breed.name) %>
-  <% if image_url %>
-    <div class="row">
-        <div class="col-sm-4"><%= breed.id %></div>
-        <div class="col-sm-8"><a href="/breed/<%= breed.name %>"><%= breed.name %></a></div>
-    </div>
-  <% else %>
-    <p>No image available</p>
-  <% end %>
-<% end %>
+<div class='img-container'>
+  <img src='https://source.unsplash.com/random/1920x1080?dogs' />
+  <hr>
 </div>
 
+<main>
+  <div class='stright'>
+    <img src='https://source.unsplash.com/random/400x500?dogs'/>
+    <p>Dogs possess an extraordinary ability to understand human emotions, demonstrated through their empathetic responses and intuitive reactions to our moods. Studies suggest they can interpret facial expressions and tone of voice, forming strong emotional bonds with their owners. Furthermore, dogs exhibit incredible loyalty, often staying by their human's side through thick and thin. Their companionship has been shown to improve mental well-being, reducing stress and loneliness. With their keen senses and unwavering devotion, dogs enrich our lives in countless ways, earning their title as "man's best friend" and solidifying their place as beloved members of our families and society.</p>
+  </div>
+  <div class='reversed'>
+    <img src='https://source.unsplash.com/random/400x500?bigdog'/>
+    <p>Dogs possess an astonishingly diverse range of breeds, with over 340 recognized by the Fédération Cynologique Internationale. Each breed showcases unique characteristics, from the towering Great Dane to the diminutive Chihuahua. This diversity arises from centuries of selective breeding, with humans shaping dogs to excel in various roles, such as hunting, herding, guarding, and companionship. Despite their varied appearances and temperaments, all dogs belong to the same species, Canis lupus familiaris, and share a common ancestor with wolves. This rich tapestry of breeds highlights the adaptability and versatility of dogs, making them one of the most remarkable creatures on Earth.</p>
+  </div>
+  <div class='stright'>
+    <img src='https://source.unsplash.com/random/400x500?dog'/>
+    <p>Dogs possess an incredible capacity for learning and problem-solving, often surprising us with their intelligence and ingenuity. Studies have shown that they can understand hundreds of words and gestures, solving complex tasks and demonstrating advanced cognitive abilities. Their adaptability and trainability make them indispensable in various roles, including search and rescue, therapy, and assistance for people with disabilities. Moreover, their ability to learn from both humans and their environment highlights their remarkable versatility and makes them invaluable partners in our lives.</p>
+  </div>
+</main>
+
 <style>
-    h1 {
-        text-align: center;
-        margin-top:40px;
+    .img-container {
+      margin: 50px auto;
+      width:90%;
+      border-radius:10px;
+      overflow:hidden;
+    } 
+
+    .img-container img{
+      width:100%;
     }
-    div.breed-container {
-        width: 893px;
-        margin: auto;
-        margin-top: 50px;
+
+    main div.stright{
+      display:flex;
+      width:850px;
+      justify-content:space-between;
+      margin: 50px auto;
+    }
+
+    
+    main div.reversed{
+      display:flex;
+      width:850px;
+      justify-content:space-between;
+      margin: 50px auto;
+      flex-direction:row-reverse;
+    }
+
+    main p {
+      width:400px;
     }
 </style>

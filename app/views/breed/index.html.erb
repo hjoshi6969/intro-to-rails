@@ -16,26 +16,30 @@ def fetch_dog_image(breed)
 end
 %>
 
-<h1>Breed</h1>
 
-<ul>
+<div class="img-container"> 
     <% image_url = fetch_dog_image(@breed_name) %>
-      <% if image_url %>
-        <img src="<%= image_url %>" alt="<%= @breed_name %> image" />
-      <% else %>
-        <p>No image available</p>
-      <% end %>
-</ul>
+    <% if image_url %>
+      <img src="<%= image_url %>" alt="<%= @breed_name %> image" />
+    <% else %>
+      <p>No image available</p>
+    <% end %>
+    <h1><%= @breed_name %></h1>
+</div>
 
+<style>
+    .img-container {
+        width: fit-content;
+        margin: auto;
+        margin-top:70px;
+    }
 
-<% @breeds.each do |breed| %>
+    .img-container img {
+        width: 700px;
+    }
 
-    <li>
-      <% image_url = fetch_dog_image(breed.name) %>
-      <% if image_url %>
-        <a href="/breed/<%= breed.name %>"><%= breed.name %></a>
-      <% else %>
-        <p>No image available</p>
-      <% end %>
-    </li>
-<% end %>
+    .img-container h1 {
+        text-align: center;
+        text-transform: capitalize;
+    }
+</style>
