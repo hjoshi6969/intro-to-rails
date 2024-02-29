@@ -2,7 +2,7 @@
 <% require 'json' %>
 
 <% def fetch_dog_image(breed) %>
-  <% uri = URI("https://dog.ceo/api/breed/#{breed}/images/random") %>
+  <% uri = URI("https://dog.ceo/api/breed/#{breed.name}/images/random") %>
   
   <% response = Net::HTTP.get_response(uri) %>
   <% data = JSON.parse(response.body) %>
@@ -26,12 +26,13 @@
     </thead>
     <tbody>
       <% count = 1 %>
-      <% @breeds.each do |breed| %>
+      <% @breeds.each do |breed_category| %>
         <tr>
           <td><%= count %></td>
-          <td><a href="/breed/<%= breed.name %>"><%= breed.name %></a></td>
+          <td><a href="/breed/<%= Breed.find(breed_category.breed_id).name %>"><%= Breed.find(breed_category.breed_id).name %></a></td>
           <td>
-            <% image_url = fetch_dog_image(breed.name) %>
+            <% breed = Breed.find(breed_category.breed_id) %>
+            <% image_url = fetch_dog_image(breed) %>
             <% if image_url %>
               <img src="<%= image_url %>" alt="<%= breed.name %> image" class="img-fluid" style="max-width: 100px;" />
             <% else %>
@@ -44,19 +45,6 @@
     </tbody>
   </table>
 </div>
-
-<nav aria-label="Page navigation example" class="Page">
-  <ul class="pagination justify-content-center">
-    <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
-    <li class="page-item"><a class="page-link" href="?page=2">2</a></li>
-    <li class="page-item"><a class="page-link" href="?page=3">3</a></li>
-    <li class="page-item"><a class="page-link" href="?page=4">4</a></li>
-    <li class="page-item"><a class="page-link" href="?page=5">5</a></li>
-    <li class="page-item"><a class="page-link" href="?page=6">6</a></li>
-    <li class="page-item"><a class="page-link" href="?page=7">7</a></li>
-  </ul>
-</nav>
-
 
 <style>
   h1 {

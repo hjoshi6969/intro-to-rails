@@ -14,29 +14,24 @@
   <% end %>
 <% end %>
 
-<h1 class="text-center">A list of all the Breeds</h1>
+<h1 class="text-center">A list of all the Categories</h1>
 <div class="breed-container">
   <table class="table table-striped">
     <thead>
       <tr>
         <th scope="col">#</th>
         <th scope="col">Name</th>
-        <th scope="col">Image</th>
+        <th scope="col">List of all the Breeds</th>
       </tr>
     </thead>
     <tbody>
       <% count = 1 %>
-      <% @breeds.each do |breed| %>
+      <% @Catogeries.each do |breed| %>
         <tr>
           <td><%= count %></td>
-          <td><a href="/breed/<%= breed.name %>"><%= breed.name %></a></td>
+          <td><a href="#"><%= breed.name %></a></td>
           <td>
-            <% image_url = fetch_dog_image(breed.name) %>
-            <% if image_url %>
-              <img src="<%= image_url %>" alt="<%= breed.name %> image" class="img-fluid" style="max-width: 100px;" />
-            <% else %>
-              <p>No image available</p>
-            <% end %>
+            <a class="btn btn-outline-success" href="/list/catogery?id=<%= breed.id %>">Show Breeds</a>
           </td>
         </tr>
         <% count += 1 %>
@@ -52,8 +47,6 @@
     <li class="page-item"><a class="page-link" href="?page=3">3</a></li>
     <li class="page-item"><a class="page-link" href="?page=4">4</a></li>
     <li class="page-item"><a class="page-link" href="?page=5">5</a></li>
-    <li class="page-item"><a class="page-link" href="?page=6">6</a></li>
-    <li class="page-item"><a class="page-link" href="?page=7">7</a></li>
   </ul>
 </nav>
 
